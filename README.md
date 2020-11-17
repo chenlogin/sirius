@@ -1,2 +1,1 @@
-# css_demo
-常用css基本布局
+# 基础功能demo
