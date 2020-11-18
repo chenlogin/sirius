@@ -1,0 +1,17 @@
+.idea
+.vscode
+.settings
+node_modules
+typings
+bower_components
+*.js.map
+publish
+
+bin
+bin-debug
+bin-release
+html-template
+npm-debug.log
+debug.log
+
+package-lock.json

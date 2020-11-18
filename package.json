@@ -1,0 +1,28 @@
+{
+  "name": "sirius",
+  "version": "0.0.1",
+  "description": "基础功能demo",
+  "main": "",
+  "scripts": {
+    "server": "webpack-dev-server --config ./build/webpack.server.js --open",
+    "build:dev": "webpack --config ./build/webpack.config.js --progress --color",
+    "build:test": "NODE_ENV=test webpack --config ./build/webpack.config.js",
+    "build:release": "NODE_ENV=release webpack --config ./build/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chenlogin/sirius.git"
+  },
+  "author": "meng",
+  "license": "",
+  "dependencies": {
+    "@babel/core": "^7.12.3",
+    "babel-loader": "^8.2.1",
+    "babel-preset-env": "^1.7.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.5.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
