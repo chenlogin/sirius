@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>拼音字体</title>
+    <script src="//cdn.bootcss.com/eruda/1.5.2/eruda.min.js"></script>
+</head>
+<body>
+    <style>
+        body{ margin: 0; }
+        .module{ font-size: 2rem; margin-bottom: 15px; }
+        .container{
+            position: relative;height: 300px;
+        }
+        .container .content{box-sizing: border-box; padding-bottom: 100px; height: 100%;background-color:cornflowerblue;overflow: scroll;}
+        .container .popup{position:absolute; bottom: 0;height: 100px;background-color: rgb(100, 237, 130);overflow: scroll; }
+    </style>
+    <div class="container">
+        <div class="content"> 
+            <div id="container1"  class="module"></div>
+            <div id="container2"  class="module"></div>
+            <div id="container3"  class="module"></div>
+            <div id="container4"  class="module"></div>
+            <div>Mother's Day is coming. Mother's Day is on the second Sunday in May. 
+                We have many things to do on Mother's Day. We can make mum happy. Please
+                    don't make mum angry and sad. We will give mum red carnations（康乃馨）. 
+                It's beautiful.</div>
+        </div> 
+        <div class="popup">
+            <div id="container4"  class="module"></div>
+            <div id="container5"  class="module"></div>
+            <div id="container6"  class="module"></div>
+            <div id="container7"  class="module"></div>
+            <div>We will help mum do housework. It's so kind.We will give mum a big hug（拥抱）and tell her we love her. 
+                It's so warm.We will pick up our toys and clothes and put them away（收拾）.
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        var fontMap = {
+            "a": { "x": 21, "y": 0, "w": 58, "h": 120 },
+            "b": { "x": 121, "y": 0, "w": 58, "h": 120 },
+            "c": { "x": 226, "y": 0, "w": 48, "h": 120 },
+            "d": { "x": 321, "y": 0, "w": 58, "h": 120 },
+            "e": { "x": 423, "y": 0, "w": 54, "h": 120 },
+            "f": { "x": 531, "y": 0, "w": 38, "h": 120 },
+            "g": { "x": 621, "y": 0, "w": 58, "h": 120 },
+            "h": { "x": 22, "y": 120, "w": 56, "h": 120 },
+            "i": { "x": 139, "y": 120, "w": 22, "h": 120 },
+            "j": { "x": 229, "y": 120, "w": 40, "h": 120 },
+            "k": { "x": 325, "y": 120, "w": 50, "h": 120 },
+            "l": { "x": 439, "y": 120, "w": 22, "h": 120 },
+            "m": { "x": 507, "y": 120, "w": 86, "h": 120 },
+            "n": { "x": 622, "y": 120, "w": 56, "h": 120 },
+            "o": { "x": 22, "y": 240, "w": 56, "h": 120 },
+            "p": { "x": 121, "y": 240, "w": 58, "h": 120 },
+            "q": { "x": 221, "y": 240, "w": 58, "h": 120 },
+            "r": { "x": 330, "y": 240, "w": 40, "h": 120 },
+            "s": { "x": 429, "y": 240, "w": 44, "h": 120 },
+            "t": { "x": 531, "y": 240, "w": 38, "h": 120 },
+            "u": { "x": 22, "y": 360, "w": 56, "h": 120 },
+            "ü": { "x": 122, "y": 360, "w": 56, "h": 120 },
+            "w": { "x": 211, "y": 360, "w": 78, "h": 120 },
+            "x": { "x": 325, "y": 360, "w": 50, "h": 120 },
+            "y": { "x": 426, "y": 360, "w": 49, "h": 120 },
+            "z": { "x": 526, "y": 360, "w": 49, "h": 120 },
+            "ā": { "x": 21, "y": 480, "w": 58, "h": 120 },
+            "á": { "x": 121, "y": 480, "w": 58, "h": 120 },
+            "ǎ": { "x": 221, "y": 480, "w": 58, "h": 120 },
+            "à": { "x": 321, "y": 480, "w": 58, "h": 120 },
+            "ō": { "x": 22, "y": 600, "w": 56, "h": 120 },
+            "ó": { "x": 122, "y": 600, "w": 56, "h": 120 },
+            "ǒ": { "x": 222, "y": 600, "w": 56, "h": 120 },
+            "ò": { "x": 322, "y": 600, "w": 56, "h": 120 },
+            "ē": { "x": 23, "y": 720, "w": 54, "h": 120 },
+            "é": { "x": 123, "y": 720, "w": 54, "h": 120 },
+            "ě": { "x": 223, "y": 720, "w": 54, "h": 120 },
+            "è": { "x": 323, "y": 720, "w": 54, "h": 120 },
+            "ī": { "x": 35, "y": 840, "w": 30, "h": 120 },
+            "í": { "x": 135, "y": 840, "w": 30, "h": 120 },
+            "ǐ": { "x": 235, "y": 840, "w": 30, "h": 120 },
+            "ì": { "x": 335, "y": 840, "w": 30, "h": 120 },
+            "ū": { "x": 22, "y": 960, "w": 56, "h": 120 },
+            "ú": { "x": 122, "y": 960, "w": 56, "h": 120 },
+            "ǔ": { "x": 222, "y": 960, "w": 56, "h": 120 },
+            "ù": { "x": 322, "y": 960, "w": 56, "h": 120 },
+            "ǖ": { "x": 22, "y": 1080, "w": 56, "h": 120 },
+            "ǘ": { "x": 122, "y": 1080, "w": 56, "h": 120 },
+            "ǚ": { "x": 222, "y": 1080, "w": 56, "h": 120 },
+            "ǜ": { "x": 322, "y": 1080, "w": 56, "h": 120 },
+            "ń": { "x": 122, "y": 1200, "w": 56, "h": 120 },
+            "ň": { "x": 322, "y": 1200, "w": 56, "h": 120 },
+            "ǹ": { "x": 322, "y": 1200, "w": 56, "h": 120 },
+            "—": { "x": 28, "y": 1484, "w": 44, "h": 32},
+            "/": { "x": 128, "y": 1484, "w": 44, "h": 32},
+            "∨": { "x": 228, "y": 1484, "w": 44, "h": 32},
+            "\\": { "x": 328, "y": 1484, "w": 44, "h": 32},
+            "-": {"x": 414, "y": 1440, "w": 72, "h": 120},
+            "→": {"x": 518, "y": 1440, "w": 64, "h": 120}
+        };
+        var getCustomFont = function(container, content, style) {
+        
+            let el = document.getElementById(container);
+            if(!el){
+                el = document.querySelector("body");
+            }
+            let words = content.split("");
+            let formatWords = "";
+            let width = 0;
+            let height = 0;
+            let scale = parseFloat(window.getComputedStyle(el).fontSize)/100;
+
+            for(let i = 0; i < words.length; i++){
+                let word = fontMap[words[i]];
+                if(word){
+                    width += word.w;
+                    height = word.h;
+                    formatWords += `
+                            <div style="display: inline-block;width: ${word.w}px;height: ${word.h}px;overflow: hidden;position: relative;">
+                                <img style="position: absolute;left: -${word.x}px;top: -${word.y}px;width:auto;" src="../src/images/font.png">
+                            </div>`;  
+                };
+            }
+            let scaleWidth = width * scale;
+            let scaleHeight = height * scale;
+            let scaleTopOffset = (height - scaleHeight) / 2;
+            let scaleLeftOffset = (width - scaleWidth) / 2;
+            let tpl = `
+                <div style="width: ${scaleWidth}px;height: ${scaleHeight}px;font-size: 0;">
+                    <div style="width: ${width}px;position: relative;top: -${scaleTopOffset}px;left: -${scaleLeftOffset}px;transform: scale(${scale});">
+                    ${formatWords}
+                    </div>
+                </div>`;
+
+            return tpl;
+        }
+        let tpl1 =  getCustomFont("container1","a→b→c-d-efg","black");
+        let tpl2 =  getCustomFont("container2","hijklmn","white");
+        let tpl3 =  getCustomFont("container3","opqrstuüwxyz","grey");
+        let tpl4 =  getCustomFont("container4","āáǎà ōóǒò ēéěè īíǐì ūúǔù ǖǘǚǜ");
+        let tpl5 =  getCustomFont("container5","ńňǹ","black");
+        let tpl6 =  getCustomFont("container6","—/∨\\","white");
+        let tpl7 =  getCustomFont("container7","aā oō eē iī uū","microblack");
+
+        document.getElementById("container1").innerHTML = tpl1;
+        document.getElementById("container2").innerHTML = tpl2;
+        document.getElementById("container3").innerHTML = tpl3; 
+        document.getElementById("container4").innerHTML = tpl4; 
+        document.getElementById("container5").innerHTML = tpl5; 
+        document.getElementById("container6").innerHTML = tpl6; 
+        document.getElementById("container7").innerHTML = tpl7; 
+    </script>
+
+    <script>
+        eruda.init();
+    </script>
+</body>
+</html>
