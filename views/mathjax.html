@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>mathJax</title>
+    <script src="http://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <style>
+        .box{
+            margin: 30px 0;
+            background-color: #fff;
+            color: blue;
+            border: solid 1px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main-region">
+    </div>
+
+    <script>
+        MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            showProcessingMessages:true,
+            showMathMenu: false,
+            showMathMenuMSIE: false,
+            imageFont: null,
+            skipStartupTypeset: true,
+            messageStyle: "none",
+            errorSettings: {
+                message: [ "[公式渲染失败，请重试]" ]
+            },
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true,
+                preview: [ "..." ],
+            }
+        });
+
+        var mock = [
+            "\\begin{align*} &4.58+2.39+5.42\\\\=&10+2.39\\\\=&12.39 \\end{align*}",
+            "\\begin{align*} x+\\frac{3}{17}=&\\frac{14}{17}\\\\x=&\\frac{14}{17}-\\frac{3}{17}\\\\x=&\\frac{11}{17} \\end{align*}",
+            "\\begin{align*} 6a+2a=&3.2\\\\a=&0.4 \\end{align*}",
+            "\\begin{align*} 2.4x+3.2=&8\\\\2.4x=&8-3.2\\\\2.4x=&4.8\\\\x=&2 \\end{align*}",
+            "\\begin{align*}  &73\\\\- &28\\\\\\hline &45\\\\+ &17\\\\\\hline &62 \\end{align*}",
+            "\\begin{align*}  &320\\\\\\times &65\\\\\\hline &1600\\\\ &1920\\\\\\hline &20800 \\end{align*}",
+            "\\begin{align*} &8\\div(27-19)\\\\=&8\\div8\\\\=&1 \\end{align*}"
+        ]
+        var innerhtml = [];
+        innerhtml[0] = "<div class=\"box\">\\begin{align*} \\;\\phantom{0}\\;6\\;0\\;0\\;1\\;2&\\\\\\;9\\big) \\hspace{-0.4em}\\overline{ \\;\\;5\\;4\\;0\\;1\\;0\\;9}&\\\\ \\;5\\;4\\;\\phantom{0}\\;\\phantom{0}\\;\\phantom{0}\\;\\phantom{0}&\\\\ \\overline{ \\;\\;\\phantom{0}\\;\\phantom{0}\\;\\phantom{0}\\;1\\;0\\;\\phantom{0}}&\\\\ \\;\\phantom{0}\\;\\phantom{0}\\;\\phantom{0}\\;\\phantom{0}\\;9\\;\\phantom{0}&\\\\ \\overline{ \\;\\;\\phantom{0}\\;\\phantom{0}\\;\\phantom{0}\\;\\phantom{0}\\;1\\;9}&\\\\ \\;\\phantom{0}\\;\\phantom{0}\\;\\phantom{0}\\;\\phantom{0}\\;\\phantom{0}\\;8&\\\\ \\overline{ \\;\\;\\phantom{0}\\;\\phantom{0}\\;\\phantom{0}\\;\\phantom{0}\\;\\phantom{0}\\;1}& \\end{align*}</div>";
+        innerhtml[1] = '<div class=\"box\">\\begin{align*} &\\phantom{00}2\\phantom{0}8 \\\\ \\times &\\phantom{00}1\\phantom{0}5 \\\\ &\\hline 1 \\phantom{0} 4 \\phantom{0} 0  \\\\ &2 \\phantom{0} 8 \\\\ &\\hline 4 \\phantom{0} 2 \\phantom{0} 0 \\end{align*}</div>';
+        innerhtml[2] = "<div class=\"box\">\\begin{align*} &\\phantom{0}1\\phantom{0}8\\phantom{0} \\\\ \\big. 30 \\big) \\hspace{-0.4em} &\\overline{\\phantom{0}5\\phantom{0}4\\phantom{0}0\\phantom{0}} \\\\ &\\phantom{0}3\\phantom{0}0 \\\\ &\\overline{\\phantom{0}2\\phantom{0}4\\phantom{0}0\\phantom{0}} \\\\ &\\phantom{0}2\\phantom{0}4\\phantom{0}0\\phantom{0} \\\\ &\\overline{\\phantom{00000}0\\phantom{0}}\\end{align*}</div>";
+        innerhtml[3] = "<div class=\"box\">\\begin{align*} &\\phantom{0}1\\phantom{0}8\\phantom{0} \\\\ \\big. 30 \\big) \\hspace{-0.4em} &\\overline{\\phantom{0}5\\phantom{0}4\\phantom{0}0\\phantom{0}} \\\\ &\\phantom{0}3\\phantom{0}0 \\\\ &\\hline \\phantom{0}2\\phantom{0}4\\phantom{0}0\\phantom{0} \\\\ &\\phantom{0}2\\phantom{0}4\\phantom{0}0\\phantom{0} \\\\ &\\hline \\phantom{00000}0\\phantom{0} \\end{align*}</div>";
+        innerhtml[4] = "<div class=\"box\">\\begin{align*} 18& \\\\ \\big. 30 \\big) \\hspace{-0.4em} \\overline{\\phantom{0}540}& \\\\30\\phantom{0}\\\\\\hline \\phantom{0}240 \\\\240&\\\\ \\hline0& \\end{align*}</div>";
+
+        for(var i=0;i<mock.length;i++){
+            innerhtml.push(`<div class="box">${mock[i]}</div>`);
+        }
+        document.getElementById("main-region").innerHTML = innerhtml.join("");
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,document.getElementById("main-region")]);
+    </script>
+</body>
+</html>

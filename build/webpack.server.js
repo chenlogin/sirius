@@ -39,7 +39,7 @@ module.exports = {
         port: 3001,
         //useLocalIp: true,
         //host: '0.0.0.0',
-        openPage:"views/pie.html",
+        openPage:"views/scroll.html",
         hot : true,
         proxy: {
             "/api": "http://localhost:3001"

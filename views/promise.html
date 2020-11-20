@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    
+    <script src="../src/libs/promise.js"></script>
+    <title>promise</title>
+</head>
+
+<body>
+    
+    <script>
+        //  new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         resolve({ test: 1 })
+        //     }, 1000)
+        // }).then((data) => {
+        //     console.log('result1', data)
+        //     //dosomething
+        //     console.log('result3')
+        // });
+
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve({ test: 1 })
+            }, 1000)
+        }).then((data) => {
+            console.log('result1', data)
+            //dosomething
+            return test()
+        }).then((data) => {
+            console.log('result2', data)
+        })
+        function test(id) {
+            return new Promise(((resolve) => {
+                setTimeout(() => {
+                resolve({ test: 2 })
+                }, 5000)
+            }))
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.js"></script>
+    <title>swiper</title>
+    <style>
+        body{
+            margin: 0;
+            background-color: #555;
+        }
+        .title {
+            width: 100%;
+            height: 50px;
+            margin: auto;
+            line-height: 50px;
+            color: #fff; 
+            text-align: center; 
+        }
+        .container{
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .footer{
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 83px;
+            line-height: 83px;
+            text-align: center;
+            color:#fff;
+        }
+        .footer #next,.footer #pre{
+            background-color: #444;
+            padding: 6px 13px;
+            border-radius: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">title</div>
+    <div class="container">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="swiper-zoom-container">
+                        <img src="https://img.pic88.com/preview/2020/08/05/15966343101449867.jpg!s640"></div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="swiper-zoom-container">
+                        <img src="https://img.pic88.com/preview/2020/08/05/15966447181370843.jpg!s640"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer"><span id="next">上一个</span><span id="pre">下一个</span></div>
+    <script>
+        var mySwiper = new Swiper('.swiper-container',{
+            zoom : true,
+            onlyExternal : true,
+        })
+        document.getElementById('next').onclick = function(){
+            mySwiper.slidePrev();
+        }
+        document.getElementById('pre').onclick = function(){
+            mySwiper.slideNext();
+        }
+    </script>
+</body>
+</html>
