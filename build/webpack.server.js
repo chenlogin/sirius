@@ -37,8 +37,8 @@ module.exports = {
     devServer: {
         contentBase: path.join(ROOT_PATH),
         port: 3001,
-        //useLocalIp: true,
-        //host: '0.0.0.0',
+        useLocalIp: true,
+        host: '0.0.0.0',
         openPage:"views/scroll.html",
         hot : true,
         proxy: {

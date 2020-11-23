@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <script src="//cdn.bootcss.com/eruda/1.5.2/eruda.min.js"></script>
+    <title>ios wk</title>
+</head>
+<body>
+
+<script>
+    var custom_name = 'custom_name';
+    var supprot_wk_webview = function supprot_wk_webview() {
+        try{
+            window.webkit.messageHandlers[custom_name].postMessage;
+            return true;
+        }catch (e){
+
+            return false;
+        }
+    };
+
+    if(supprot_wk_webview()){
+        /*无参数，无返回值*/
+        window.webkit.messageHandlers[custom_name].postMessage({
+            method: "method_name"
+        });
+        /*有参数，有返回值*/
+        //创建，客户端在指定时机触发win_wk_post_cb事件
+        window.webkit.messageHandlers[custom_name].postMessage({
+            method: "getInitParams",
+            param: JSON.stringify({}),
+            callback:"win_wk_post_cb"
+        });
+        var onCallback = ({ detail: params })=>{
+            console.log(JSON.stringify(params));
+            document.removeEventListener("win_wk_post_cb", onCallback); 
+        }
+        //监听
+        document.addEventListener("win_wk_post_cb", onCallback);
+    }else{
+        console.log("Not Support");
+    } 
+    eruda.init();
+</script>
+</body>
+</html>
