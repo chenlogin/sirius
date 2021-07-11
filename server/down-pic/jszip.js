@@ -14,11 +14,12 @@ var config = {
  */
 function toZip (fileNames, { delSource = false } = {}) {
     var zip = new JSZip();
-    var extArr = ['.jpg', '.png'];
+    var extArr = ['.jpg', '.png','.js'];
 
     extArr.forEach(ext => {
         fileNames.forEach(fileName =>{
             let file = fileName + ext;
+            console.log(file)
             if(isExist(file)){
                 let content = getFileContent(file);
                 zip.file(file, content);

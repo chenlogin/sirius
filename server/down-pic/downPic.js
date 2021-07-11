@@ -16,10 +16,10 @@ mkdirp(dir, function(err) {
 });
 
 // 图片下载地址,这个地址如果没有，可以换成spiderPic.js操作
-
 var urlArr = [
     'https://dimg11.c-ctrip.com/images/020691200082co240B8EA_R_300_120.jpg',
-    'https://dimg11.c-ctrip.com/images/200b0u000000jf06k79E1_R_300_120.jpg'
+    'https://dimg11.c-ctrip.com/images/200b0u000000jf06k79E1_R_300_120.jpg',
+    'https://unpkg.com/axios@0.21.1/dist/axios.min.js'
 ];
 
 // 主要方法，用于下载文件
@@ -30,8 +30,9 @@ var download = function(url, dir, filename){
 };
 
 urlArr.map(function(val, index) {
-    download(val, dir, index + ".jpg");
+    var name = val.match(/\/([^/]*)$/)[1];
+    download(val, dir, name);
 });
 
 //图片打包
-jszip.toZip(["0","1","bd_logo"]);
+jszip.toZip(["axios.min","bd_logo"]);
