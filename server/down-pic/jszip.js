@@ -1,3 +1,21 @@
+/**
+ * //JSZip库的简单使用
+ * //需用到jszip/dist下的jszip.min.js文件以及jszip/vendor下的FileSaver.js文件
+ * var zip = new JSZip();
+ * //添加一个txt文件
+ * zip.file("Hello.txt", "Hello World\n");
+ * //添加一个文件夹
+ * var img = zip.folder("images");
+ * //文件夹下添加一个图片文件
+ * img.file("smile.gif", imgData, {base64: true});
+ * zip.generateAsync({type:"blob"})
+ * .then(function(content) {
+ *  // see FileSaver.js
+ *  saveAs(content, "example.zip");
+ * });
+ * 
+ */
+
 var fs = require('fs');
 var path = require('path');
 var JSZip = require('jszip');
