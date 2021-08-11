@@ -9,7 +9,6 @@ module.exports = {
     mode: 'production',
 
     entry: {
-
         main: path.join(SRC_PATH,'index.js')
     },
 
