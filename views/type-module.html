@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- <script src="../src/type-module.js"></script> -->
+    <script src="../src/type-module.js" type="module"></script>
+    <title>type-module page</title>
+</head>
+<body>
+    <h2>js异步加载之defer、async、type=module</h2>
+    <div>
+        <h3>defer</h3>
+        <p>1、如果script标签设置了该属性，则浏览器会异步的下载该文件并且不会影响到后续DOM的渲染；</p>
+        <p>2、如果有多个设置了defer的script标签存在，则会按照顺序执行所有的script；</p>
+        <p>3、defer脚本会在文档渲染完毕后，DOMContentLoaded事件调用前执行。</p>
+    </div>
+
+    <div>
+        <h3>async</h3>
+        <p>1、async的设置，会使得script脚本异步的加载并在允许的情况下异步执行该脚本。</p>
+        <p>2、async的执行，并不会按着script在页面中的顺序来执行，而是谁先加载完谁执行，执行脚本时页面停止渲染，执行完成后继续页面渲染。</p>
+        <p>3、DOMContentLoaded事件的触发并不受async脚本加载的影响。</p>
+    </div>
+
+    <div>
+        <h3>type=module</h3>
+        <p>1、带有type="module"的script，都是异步加载，不会造成堵塞浏览器，即等到整个页面渲染完，再执行模块脚本，等同于打开了script标签的defer属性</p>
+        <!-- 
+            等到整个页面渲染完，再执行模块脚本 
+            <script type="module" src="foo.js"></script>
+            等同于 
+            <script type="module" src="foo.js" defer></script>
+            
+            签的async属性也可以打开，这时js只要下载完成就立即执行，并且中断页面渲染 
+            <script type="module" src="foo.js" async></script>
+        -->
+    </div>
+
+</body>
+</html>
