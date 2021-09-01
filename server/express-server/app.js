@@ -68,6 +68,7 @@ const cookieParser = require('cookie-parser')
 
 const app = express()
 const port = 3000
+
 const assets = path.join(__dirname + '/assets');
  
 //应用级中间件绑定到app对象，提供静态资源访问
@@ -115,14 +116,15 @@ app.get('/', (request, response, next) => {
 //接口：http://localhost:3000/home?a=1&b=2
 app.get('/home', (req, res, next) => {
   var header = req.headers;
+  var params = req.query;
   console.log("IO Request",{
     Host: header.host,
     cookies: header.cookie,
     ip: req.ip,
-    params: req.query,
+    params,
   });
-  var params = req.query;
-  res.send('Request parameters : ' + JSON.stringify(params));
+  
+  res.send('GET Request parameters : ' + JSON.stringify(params));
 });
 
 app.post('/about', (req, res) => {

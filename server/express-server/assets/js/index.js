@@ -11,7 +11,7 @@ var fn = function(){
     });
 
     //存在跨域：http://localhost:3000/static/images/express.png
-    axios.request({ url: '../../server/interceptor/assets/images/express.png' }).then(res => {
+    axios.request({ url: '../../server/express-server/assets/images/express.png' }).then(res => {
         console.log(res);
     });
 
