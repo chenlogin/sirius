@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Realtime communication with WebRTC</title>
+        <style>
+            body {font-family: sans-serif;}
+            video {max-width: 100%;width: 320px;}
+        </style>
+    </head>
+
+    <body>
+        <video id="localVideo" autoplay playsinline></video>
+        <video id="remoteVideo" autoplay playsinline></video>
+    
+        <div>
+            <button id="startButton">开始</button>
+            <button id="callButton">调用</button>
+            <button id="hangupButton">挂断</button>
+        </div>
+        <script src="../src/webrtc.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<title>录屏</title>
+	</head>
+	<body>
+		<button id="record">开始录制</button>
+		<video autoplay playsinline id="player" width="400"></video>
+
+		<script type="text/javascript">
+			document.querySelector('#record').onclick = function() {
+				
+				/**
+				 * 功能只能在https环境中运行，本地开发可以支持127.0.0.1或者localhost
+				 * 
+				 * getDisplayMedia，获取桌面媒体流，录制屏幕（整个屏幕或者某个应用界面或者浏览器的指定标签页）
+				 * getUserMedia，摄像头中获取视频流
+				 * 将内容录制下来并且下载到本地需求使用WebRTC提供的另外一个类MediaRecorder
+				 * ondataavailable当收集到的数据有效就会触发这个事件，onerror错误的时候会触发这个事件，录制会自动停止
+				 * 下载功能我们需要借助Blob类型来实现
+				*/
+			    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+					//navigator.mediaDevices.getDisplayMedia({
+			        navigator.mediaDevices.getUserMedia({
+			            video: true,
+			            audio: false
+			        }).then((stream) => {
+			            document.querySelector('#player').srcObject = stream;
+			        }).catch((err) => {
+			            console.error(err);
+			        })
+			    } else {
+			        alert('不支持这个特性');
+			    }
+			}
+		</script>
+	</body>
+</html>
