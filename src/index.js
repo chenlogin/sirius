@@ -1,3 +1,3 @@
-export default function main(){
-    console.log("webpack-dev-server");
+export default function main() {
+  console.log("webpack-dev-server");
 };
