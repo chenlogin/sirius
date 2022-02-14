@@ -11,9 +11,11 @@
     "lint:create": "eslint --init",
     "lint": "eslint src",
     "prettier": "prettier --write src/index.js",
-    "pr": "prettier src/index.js"
+    "pr": "prettier src/index.js",
+    "bar": "echo \"bar\" && exit 0"
   },
   "pre-commit": [
+    "bar",
     "pr"
   ],
   "repository": {
