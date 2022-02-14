@@ -15,3 +15,5 @@ npm-debug.log
 debug.log
 
 package-lock.json
+
+server/oss/

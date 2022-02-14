@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>表格demo</title>
+    <style type="text/css">
+      body {
+        margin: 0 60px;
+      }
+      table {
+        width: 100%;
+        border: 1px solid #d9dadf;
+        border-spacing: 0;
+        border-bottom: none;
+      }
+      table td,
+      table th {
+        border-right: 1px solid #d9dadf;
+        border-bottom: 1px solid #d9dadf;
+      }
+      tr:last-child th {
+        border-bottom: none;
+      }
+      tr td:last-child,
+      tr th:last-child {
+        border-right: none;
+      }
+
+      th {
+        height: 31px;
+        background-color: #dbe9ff;
+        text-align: left;
+      }
+      td {
+        height: 31px;
+        text-align: left;
+      }
+      th span,
+      td span {
+        font-size: 16px;
+        padding: 7px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h2>基础情况</h2>
+      <table>
+        <tbody>
+          <tr>
+            <th><span>单元</span></th>
+            <th><span>知识点</span></th>
+            <th><span>题目联系次数</span></th>
+            <th><span>班级正确率</span></th>
+          </tr>
+          <tr>
+            <td rowspan="2">第 1 单元</td>
+            <td>正数和负数的认识及应用</td>
+            <td>2</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>有理数及其分类</td>
+            <td>2</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td rowspan="2">其他综合练习</td>
+            <td>正比例函数的定义</td>
+            <td>2</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>锐角三角函数</td>
+            <td>2</td>
+            <td>2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

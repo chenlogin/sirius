@@ -61,95 +61,94 @@ res.type()：设置Content-Type的MIME类型
  * cookie-parser，可以用req.cookies得到参数
 */
 
-const express = require('express')
-const path = require('path')
-const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser') 
+const express = require("express");
+const path = require("path");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
 
-const assets = path.join(__dirname + '/assets');
- 
+const assets = path.join(__dirname + "/assets");
+
 //应用级中间件绑定到app对象，提供静态资源访问
-app.use('/static', express.static(assets))
+app.use("/static", express.static(assets));
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))    
+app.use(bodyParser.urlencoded({ extended: false }));
 
-// parse application/json  
-app.use(bodyParser.json())
+// parse application/json
+app.use(bodyParser.json());
 
-app.use(cookieParser())
+app.use(cookieParser());
 
 //设置允许跨域访问该服务
-app.all('*', function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  res.header('Access-Control-Allow-Methods', '*');
-  res.header("Access-Control-Allow-Credentials",1)
-  next(); 
+app.all("*", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Methods", "*");
+  res.header("Access-Control-Allow-Credentials", 1);
+  next();
 });
 
 //根目录
 //http://localhost:3000/?a=12
-app.get('/', (request, response, next) => {
+app.get("/", (request, response, next) => {
   //request 和 response 对象来处理请求和响应的数据
   //request 对象表示 HTTP 请求，包含了请求查询字符串，参数，内容，HTTP 头部等属性
   var header = request.headers;
-  console.log("request",{
+  console.log("request", {
     Host: header.host,
     cookies: header.cookie,
-    cookieParser:request.cookies,//中间件直接获取到对象格式
+    cookieParser: request.cookies, //中间件直接获取到对象格式
     ip: request.ip,
     params: request.query,
   });
 
   //同域，设置cookie
-  response.cookie("uid",'1111111');
+  response.cookie("uid", "1111111");
 
   //将控制权交给下一个中间件
   next();
   response.end();
-})
+});
 
 //接口：http://localhost:3000/home?a=1&b=2
-app.get('/home', (req, res, next) => {
+app.get("/home", (req, res, next) => {
   var header = req.headers;
   var params = req.query;
-  console.log("IO Request",{
+  console.log("IO Request", {
     Host: header.host,
     cookies: header.cookie,
     ip: req.ip,
     params,
   });
-  
-  res.send('GET Request parameters : ' + JSON.stringify(params));
+
+  res.send("GET Request parameters : " + JSON.stringify(params));
 });
 
-app.post('/about', (req, res) => {
-  res.json({message:"post请求传值为" + JSON.stringify(req.body)});
+app.post("/about", (req, res) => {
+  res.json({ message: "post请求传值为" + JSON.stringify(req.body) });
 });
 
 // 没有挂载路径的中间件，应用的每个请求都会执行该中间件
 app.use(function (req, res, next) {
-  console.log('Time:', Date.now());
+  console.log("Time:", Date.now());
   next();
 });
 
 // 挂载至 /user/:id 的中间件，任何指向 /user/:id 的请求都会执行它
-app.use('/home/:id', function (req, res, next) {
-  console.log('Request Type:', req.method);
+app.use("/home/:id", function (req, res, next) {
+  console.log("Request Type:", req.method);
   next();
 });
 
 //错误处理中间件
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send("Something broke!");
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
-
+  console.log(`Example app listening at http://localhost:${port}`);
+});
