@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <script type="text/javascript" src="./index.js"></script>
+  </head>
+  <body>
+    
+    <canvas width="200" style="background-color: beige;"></canvas>
+    <div id="videoContainer" style="display: none;">
+      <h2>视频</h2>
+      <video
+        width="300"
+        height="300"           
+        controls="true"   
+        autoplay="true"
+        id="video"
+        ></video>
+    </div>
+
+    <script>
+      
+      const canvas = document.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+      const {width, height} = canvas;
+
+      ctx.fillStyle = 'red';
+
+      function draw(rotation = 0) {
+
+        ctx.clearRect(0, 0, 200, 200);
+
+        ctx.save();
+
+        ctx.translate(width / 2, height / 2);
+
+        ctx.rotate(rotation);
+
+        ctx.translate(-width / 2, -height / 2);
+
+        ctx.beginPath();
+
+        ctx.rect(50, 50, 50, 50);
+
+        ctx.fill();
+
+        ctx.restore();
+
+      }
+
+      function update(t) {
+        draw(t / 500);
+
+        //requestAnimationFrame 比起 setTimeout、setInterval的优势主要有两点：
+        //1、requestAnimationFrame把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+        //2、在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，这就意味着更少的的cpu，gpu和内存使用量。
+        requestAnimationFrame(update);
+      }
+
+      //矩形在画布中心旋转
+      update(0);
+
+      //获取MediaStream对象
+      const stream = canvas.captureStream();
+      const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+
+      const data = [];
+
+      //注册ondataavailable事件，将数据记录下来
+      recorder.ondataavailable = function (event) {
+
+        if (event.data && event.data.size) {
+
+          data.push(event.data);
+        }
+
+      };
+
+      recorder.onstop = () => {
+
+        const url = URL.createObjectURL(new Blob(data, { type: 'video/webm' }));
+
+        document.querySelector("#videoContainer").style.display = "block";
+
+        document.querySelector("video").src = url;
+      };
+
+      recorder.start();
+
+      setTimeout(() => {
+
+        recorder.stop();
+      }, 6000);
+    </script>
+    
+  </body>
+
+</html>
