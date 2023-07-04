@@ -60,7 +60,8 @@
     "koa-router": "^12.0.0",
     "moment": "^2.29.1",
     "react-resizable-rotatable-draggable": "^0.2.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "source-map": "^0.7.4"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^16.2.1",
