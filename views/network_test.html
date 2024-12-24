@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+<body>
+  <div id="controls"></div>
+  <div id="result"></div>
+
+  <script type="module">
+    import SpeedTest from 'https://cdn.skypack.dev/@cloudflare/speedtest';
+
+    const controlEl = document.getElementById('controls');
+    const resEl = document.getElementById('result');
+
+    const engine = new SpeedTest({
+      autoStart: false
+    });
+    engine.onRunningChange = running => controlEl.textContent = running ? 'Running...' : 'Finished!';
+    engine.onResultsChange = ({ type }) => {
+      !engine.isFinished && setResult(engine.results.raw);
+      console.log(type);
+    };
+    engine.onFinish = results => {
+      setResult(results.getSummary());
+      console.log(results.getSummary());
+      console.log(results.getScores());
+    };
+
+    engine.onError = (e) => console.log(e);
+
+    const playButton = document.createElement('button');
+    playButton.textContent = "Start Speed Measurement";
+    playButton.onclick = () => engine.play();
+    controlEl.appendChild(playButton);
+
+    function setResult(obj) {
+      const resTxt = document.createElement('pre');
+      resTxt.textContent = JSON.stringify(obj, null, 2);
+      resEl.textContent = '';
+      resEl.appendChild(resTxt);
+    }
+  </script>
+</body>
+</html>
