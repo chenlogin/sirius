@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>语音识别</title>
+</head>
+<body>
+  <div class="box">
+    <h2>语音转文字</h2>
+    <button onclick="fn()">开始录音</button>
+    <label id="text"></label>
+  </div>
+  <div class="box">
+    <h2>文字转语音</h2>
+    <label id="text1">Hello, how are you today ?</label>
+    <button onclick="fn1()">开始播放</button>
+  </div>
+</body>
+
+<script type="text/javascript">
+  //语音转文字
+  //需要挂代理才有数据返回，识别结果不稳定
+  const recognition = new webkitSpeechRecognition();
+  let loading = false, lastLength = 0;
+
+  // 设置语言
+  recognition.lang = 'zh';
+  // 开启连续识别
+  recognition.continuous = true;
+  // 开启实时识别
+  recognition.interimResults = true;
+  // 监听语音识别结果
+  recognition.addEventListener('result', onresult)
+  function onresult(event) {
+    // 这个事件会把前面识别的结果都返回回来，所以需要取最后一个识别结果
+    const length = event.results.length;
+    // 没有新的识别结果的时候，事件也会触发，所以这里判断一下如果没有新的识别结果，就不取最后一个识别结果了。
+    if (lastLength === length) {
+      return;
+    }
+
+    lastLength = length;
+
+    console.log(event.results);
+
+    // 获取最后一个识别结果
+    const transcript = event.results[length - 1]?.[0]?.transcript;
+
+    // 将最后一个识别结果添加到文本
+    if (transcript) {
+      let el = document.getElementById("text");
+      let text = el.innerHTML
+      el.innerHTML = text + transcript;
+    }
+  }
+
+  recognition.onstart = () => {
+    console.log("onstart")
+  };
+  recognition.onerror = () => {
+    console.log("Speech Recognition Error");
+  };
+  recognition.onend = () => {
+    console.log("Speech Recognition Ended");
+  };
+
+  function fn() {
+    if (loading) {
+      recognition.removeEventListener('result', onresult)
+      recognition.stop();
+      loading = false
+      return;
+    }
+    loading = true;
+
+    lastLength.current = 0;
+    recognition.start();
+  }
+</script>
+
+<script type="text/javascript">
+  //文字转语音
+  //主要用到了两个api，speechSynthesis和SpeechSynthesisUtterance
+  let loading1 = false, voices=[];
+
+  function getVoices() {
+    // 获取声音，因为这个返回值不稳定，多试几次
+    voices = window.speechSynthesis.getVoices();
+  }
+
+  function fn1() {
+    const synth = window.speechSynthesis;
+
+    if (loading1) {
+      loading1 = false;
+      synth.cancel();
+      return;
+    }
+
+    const utterThis = new SpeechSynthesisUtterance();
+
+    // 播放介绍
+    utterThis.onend = () => {
+      loading1 = false;
+    }
+    utterThis.onerror = () => {
+      loading1 = false;
+    }
+    /**
+     * speech.lang 获取并设置话语的语言（en-US、zh-CN）
+     * speech.pitch 获取并设置话语的音调 (值越大越尖锐，range:0-2, default:1, float)
+     * speech.rate 获取并设置说话的速度 (值越大语速越快, range:0.1-10, default:1, float)
+     * speech.text 获取并设置说话时的文本
+     * speech.voice 获取并设置说话的声音
+     * speech.volume 获取并设置说话的音量 (range: 0-1, default:1, float)
+     * speech.onboundary
+     * speech.onend 播放结束的回调
+     * speech.onerror 播放出现错误的回调
+     * speech.onmark 当读到标记文本时的回调
+     * speech.onpause 播放暂停
+     * speech.onresume 播放重启
+     * speech.onstart 播放开始的回调 
+     * */
+    
+    utterThis.text = document.getElementById("text1").innerHTML;
+    utterThis.lang = "en-US";
+    // utterThis.lang = 'zh-CN';
+    utterThis.voice = voices[0];
+    synth.speak(utterThis);
+
+    loading1 = true;
+  }
+</script>
+</html>
+
+
